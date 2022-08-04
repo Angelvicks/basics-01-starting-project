@@ -1,6 +1,5 @@
- let currentResult = 0;
- let logResult = []
-
+let currentResult = 0;
+let logResult = [];
 
 // let userFirstInput = 100;
 // userFirstInput = 120;
@@ -13,10 +12,10 @@
 // outputResult(currentResult, result_description)
 // Global scope is outside the fxn
 //function add (num1, num2) { //function definition
-    //local scope is inside or within the fxn
-    //const result = num1 + num2; //function body
-    //return result
-    //alert(result);
+//local scope is inside or within the fxn
+//const result = num1 + num2; //function body
+//return result
+//alert(result);
 //}
 
 //currentResult =  add(1, 3); //calling the function defined above, that is invoking the fxn
@@ -33,65 +32,74 @@
 //addBtn.addEventListener('click', add1)
 
 // Get's user input
-function getUserInput () {
-    return parseInt(userInput.value)
+function getUserInput() {
+  return parseInt(userInput.value);
 }
 
 // Displays calculation description
-function getDescription(operator){
-    return `${currentResult} ${operator} ${getUserInput()}`
-}
-function add () {
-    const calcDescription = getDescription('+')
-    currentResult +=  getUserInput();
-    let resultObj= {
-        result: currentResult,
-        description: calcDescription
-    }
-    logResult.push(resultObj)
-    outputResult(currentResult, calcDescription)
+function getDescription(temporal, operator) {
+  return `${temporal} ${operator} ${getUserInput()}`;
 }
 
-addBtn.addEventListener('click', add)
-
-function  subtract() {
-    const calcDescription = getDescription('-')
-    currentResult -=  getUserInput();
-    
-    let resultObj= {
-        result: currentResult,
-        description: calcDescription
-    }
-    logResult.push(resultObj)
-    console.log(logResult);
-    outputResult(currentResult, calcDescription)
+function writeLog(currentResult, calcDescription) {
+  let resultObj = {
+    result: currentResult,
+    description: calcDescription,
+  };
+  logResult.push(resultObj);
+  console.log(logResult);
 }
-subtractBtn.addEventListener('click', subtract)
 
-function multiply () {
-    const calcDescription = getDescription('*')
-    currentResult *=  getUserInput();
-    
-    let resultObj= {
-        result: currentResult,
-        description: calcDescription
-    }
-    logResult.push(resultObj)
-    console.log(logResult);
-    outputResult(currentResult, calcDescription)
-}
-multiplyBtn.addEventListener('click', multiply)
+function calculate(type) {
+  if (
+    type != "ADD" &&
+    type != "SUBTRACT" &&
+    type != "MULTIPLY" &&
+    type != "DIVIDE"
+  ) {
+    return;
+  }
 
-function divide () {
-    const calcDescription = getDescription('/')
-    currentResult /=  getUserInput();
-    
-    let resultObj= {
-        result: currentResult,
-        description: calcDescription
-    }
-    logResult.push(resultObj)
-    console.log(logResult);
-    outputResult(currentResult, calcDescription)
+  let temporal = currentResult;
+
+  let operator;
+  if (type == "ADD") {
+    currentResult += getUserInput();
+    operator = "+";
+  } else if (type == "SUBTRACT") {
+    currentResult += getUserInput();
+    operator = "-";
+  } else if (type == "MULTIPLY") {
+    currentResult *= getUserInput();
+    operator = "*";
+  } else if (type == "DIVIDE") {
+    currentResult /= getUserInput();
+    operator = "/";
+  } else {
+    console.log("Please enter a valid operator dude");
+  }
+  const calcDescription = getDescription(temporal, operator);
+  writeLog(currentResult, calcDescription);
+  outputResult(currentResult, calcDescription);
 }
-divideBtn.addEventListener('click', divide)
+
+function add() {
+  calculate("ADD");
+}
+
+addBtn.addEventListener("click", add);
+
+function subtract() {
+  calculate("SUBTRACT");
+}
+subtractBtn.addEventListener("click", subtract);
+
+function multiply() {
+  calculate("MULTIPLY");
+}
+multiplyBtn.addEventListener("click", multiply);
+
+function divide() {
+  calculate("DIVIDE");
+}
+divideBtn.addEventListener("click", divide);
